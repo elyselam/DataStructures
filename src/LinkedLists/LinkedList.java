@@ -33,6 +33,22 @@ public class LinkedList<E> {
         //so now head is the new node
         head = node;
         currentSize++;
+    }
 
+    public void addLast(E obj) {
+        Node<E> node = new Node<E>(obj);
+        if (head == null) {
+            head = node;
+            currentSize++;
+            return;
+        }
+        //temp points at data, keeps moving until null
+        Node<E> temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        //add when reaches null
+        temp.next = node;
+        currentSize++;
     }
 }
