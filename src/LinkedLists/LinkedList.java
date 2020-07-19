@@ -1,5 +1,7 @@
 package LinkedLists;
 
+import com.sun.org.apache.xml.internal.dtm.ref.DTMAxisIterNodeList;
+
 public class LinkedList<E> {
 
     //inner class to restrict access
@@ -20,11 +22,11 @@ public class LinkedList<E> {
     }
     /*
     boundary conditions:
-    emptying
-    finding single element
-    adding/removing from front
-    adding/removing from end
-    working in middle
+    1) is empty
+    2) has single element
+    3) adding/removing from front
+    4) adding/removing from end
+    5) working in middle
       */
 
     public void addFirst(E obj) {
@@ -51,4 +53,9 @@ public class LinkedList<E> {
         temp.next = node;
         currentSize++;
     }
+
+
+
+
+
 }
