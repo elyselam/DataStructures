@@ -1,5 +1,7 @@
 package List.EmployeeExample;
 
+import java.util.function.DoubleToIntFunction;
+
 /*
 vector == synchronized arrayList
  */
@@ -16,6 +18,10 @@ public class Main {
         lst.addToFront(e3);
         lst.printList();
         System.out.println(lst.getSize());
+
+        lst.removeFromFront();
+        System.out.println(lst.getSize());
+        lst.printList();
 
 
 //        List<Employee> employeeList = new ArrayList<>();

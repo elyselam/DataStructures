@@ -11,8 +11,23 @@ public class EmployeeLinkedList {
         head = newNode;
         size++;
     }
+
+    public EmployeeNode removeFromFront() {
+        if (isEmpty()) {
+            return null;
+        }
+        EmployeeNode removedNode = head;
+        head = head.getNext(); //head now points to the 2nd item in the list
+        size--;
+        removedNode.setNext(null);
+        return removedNode;
+
+    }
     public int getSize() {
         return size;
+    }
+    public boolean isEmpty() {
+        return head == null;
     }
     public void printList() {
         EmployeeNode current = head;
@@ -24,4 +39,6 @@ public class EmployeeLinkedList {
         }
         System.out.println("null");
     }
+
+
 }
