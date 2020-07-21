@@ -1,9 +1,7 @@
-package List.EmployeeExample;
-
-import java.util.function.DoubleToIntFunction;
+package List.SinglyLinkedList;
 
 /*
-vector == synchronized arrayList
+
  */
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +21,11 @@ public class Main {
         System.out.println(lst.getSize());
         lst.printList();
 
+
+
+
+    }
+}
 
 //        List<Employee> employeeList = new ArrayList<>();
 //        employeeList.add(new Employee("elyse", "lam", 123));
@@ -45,6 +48,3 @@ public class Main {
 //
 //        System.out.println(employeeList.contains(new Employee("b", "s", 22)));
 //        System.out.println(employeeList.indexOf(new Employee("e", "l", 456)));
-
-    }
-}

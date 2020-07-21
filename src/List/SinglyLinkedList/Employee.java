@@ -1,4 +1,4 @@
-package List.EmployeeExample;
+package List.SinglyLinkedList;
 
 public class Employee {
     private String firstName;
