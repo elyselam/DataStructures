@@ -9,13 +9,13 @@ public class EmployeeLinkedList {
     public void addToFront(Employee employee) {
         EmployeeNode newNode = new EmployeeNode(employee);
         newNode.setNext(head); //set next to be old head
-
+        //only have to worry about tail when list is empty
         if(head == null) {
             tail = newNode;
         } else {
             head.setPrevious(newNode); //if not empty
         }
-        head = newNode;
+        head = newNode; //
         size++;
     }
 
