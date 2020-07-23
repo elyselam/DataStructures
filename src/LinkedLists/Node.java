@@ -1,7 +1,5 @@
 package LinkedLists;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 public class Node {
     int data;
     Node next;
@@ -110,18 +108,23 @@ class LinkedList {
     }
 
     Node deleteNthFromEnd(int n) {
-        Node curr = head;
         Node fast = head;
         Node slow = head;
+        // 1->2->3->4->5, n = 2
+        //fast = 3
+       // now fast = 4
         for (int i = 1; i <= n + 1; i++) {
             fast = fast.next;
         }
+//      now fast = 5, slow = 2
+//          fast = 5, slow = 3, break out of loop
         while (fast != null) {
             slow = slow.next;
             fast = fast.next;
         }
+        //slow skips 4 and now at 5
         slow.next = slow.next.next;
-        return curr.next;
+        return slow.next;
     }
 
     //fast and slow pointers eventually collide if loop points back to itself
@@ -129,7 +132,6 @@ class LinkedList {
         if (head == null) return false;
         Node fast = head;
         Node slow = head;
-
         while (fast != null && fast.next != null && slow != null) {
             if (fast == slow) {
                 return true;
@@ -145,23 +147,31 @@ class LinkedList {
         Node n = new Node(1);
 
         LinkedList l = new LinkedList(n);
+        l.addToEnd(1);
         l.addToEnd(2);
-        l.addToStart(3);
-        l.addToStart(5);
-        l.addAtIndex(100, 1);
+        l.addToEnd(3);
+        l.addToEnd(4);
+        l.addToEnd(5);
+//        l.addToStart(3);
+//        l.addToStart(5);
+//        l.addAtIndex(100, 1);
 
-        System.out.println(l.head);
-        System.out.println(l.size);
+//        System.out.println(l.head);
+//        System.out.println(l.size);
+//
+//        System.out.println(l.deleteAtIndex(2));
+//
+//        System.out.println(l.size);
 
-        System.out.println(l.deleteAtIndex(2));
-
-        System.out.println(l.size);
+        l.deleteNthFromEnd(2); //removes 4
 
         Node curr = l.head;
         while(curr != null) {
             System.out.println(curr);
             curr = curr.next;
         }
+
+
 
     }
 }
