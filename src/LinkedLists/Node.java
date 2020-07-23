@@ -19,8 +19,11 @@ public class Node {
 
 class LinkedList {
     Node head;
+    int size;
+
     public LinkedList(Node head) {
         this.head = head;
+        this.size = 1;
     }
 
     void addToEnd(int data) {
@@ -33,6 +36,7 @@ class LinkedList {
                 curr = curr.next;
             }
             curr.next = n;
+            size++;
         }
     }
     void addToStart(int data) {
@@ -40,7 +44,6 @@ class LinkedList {
         n.next = head;
         head = n;
     }
-
 
     void addAtIndex(int data, int idx) {
         Node n = new Node(data);
@@ -53,8 +56,51 @@ class LinkedList {
             }
             curr = curr.next;
             i++;
+            size++;
         }
     }
+    void deleteAtIndex(int data, int idx) {
+        Node n = new Node(data);
+        int i = 0;
+        Node curr = head;
+        while (i < idx) {
+            if (i == idx-1) {
+                curr.next = null;
+                curr
+            }
+            curr.next = null;
+            i++;
+            size++;
+        }
+    }
+
+    Node deleteLast() {
+        Node curr = head;
+        if (curr == null || curr.next == null) {
+            head = null;
+            return curr;
+        }
+        Node nextNode = curr.next;
+        while (curr.next != null) {
+            if (nextNode.next == null) {
+                curr.next = null; //set to null
+            }
+            curr = nextNode; //hold this reference to return it later
+            nextNode = nextNode.next; //null
+        }
+        return curr;
+    }
+
+    Node deleteStart() {
+        if (head != null) {
+            Node toDelete = head;
+            head = head.next;
+            return toDelete;
+        }
+        return null;
+    }
+
+
 
     public static void main(String[] args) {
         Node n = new Node(1);
@@ -63,7 +109,7 @@ class LinkedList {
         l.addToEnd(2);
         l.addToStart(3);
         l.addToStart(5);
-//        l.addAtIndex(100, 1);
+        l.addAtIndex(100, 1);
         System.out.println(l.head);
 
 
