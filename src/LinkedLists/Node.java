@@ -1,6 +1,8 @@
 package LinkedLists;
 
 
+import java.util.ListIterator;
+
 public class Node {
     int data;
     Node next;
@@ -12,7 +14,7 @@ public class Node {
     public String toString() {
         return "Node {" +
                 "data=" + data +
-                ", next= " + next +
+                //", next= " + next +
                 '}';
     }
 }
@@ -39,10 +41,12 @@ class LinkedList {
             size++;
         }
     }
+
     void addToStart(int data) {
         Node n = new Node(data);
         n.next = head;
         head = n;
+        size++;
     }
 
     void addAtIndex(int data, int idx) {
@@ -52,27 +56,33 @@ class LinkedList {
         while (i <= idx) {
             if (i == idx) {
                 n.next = curr.next;
-                      curr.next = n;
+                curr.next = n;
             }
             curr = curr.next;
             i++;
-            size++;
         }
+        size++;
     }
-    void deleteAtIndex(int data, int idx) {
-        Node n = new Node(data);
+
+    Node deleteAtIndex(int idx) {
         int i = 0;
         Node curr = head;
-        while (i < idx) {
-            if (i == idx-1) {
-                curr.next = null;
-                curr
-            }
-            curr.next = null;
-            i++;
-            size++;
+        if (head == null) {
+            return null;
         }
+        if (idx > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        while (i < idx - 1) {
+            curr = curr.next;
+            i++;
+        }
+        Node temp = curr.next; //save the deleted item to return
+        curr.next = curr.next.next;
+        size--;
+        return temp;
     }
+
 
     Node deleteLast() {
         Node curr = head;
@@ -101,7 +111,6 @@ class LinkedList {
     }
 
 
-
     public static void main(String[] args) {
         Node n = new Node(1);
 
@@ -110,10 +119,19 @@ class LinkedList {
         l.addToStart(3);
         l.addToStart(5);
         l.addAtIndex(100, 1);
+
         System.out.println(l.head);
+        System.out.println(l.size);
 
+        System.out.println(l.deleteAtIndex(2));
 
+        System.out.println(l.size);
 
+        Node curr = l.head;
+        while(curr != null) {
+            System.out.println(curr);
+            curr = curr.next;
+        }
 
     }
 }
@@ -123,6 +141,7 @@ class LinkedList {
 /*
 5, 3, 1, 2
 5, 3, 100, 1, 2
+5, 3, 1, 2
 
 Node {data=5, next=
                     Node {data=3, next=
