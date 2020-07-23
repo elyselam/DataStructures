@@ -1,7 +1,6 @@
 package LinkedLists;
 
-
-import java.util.ListIterator;
+import com.sun.xml.internal.bind.v2.TODO;
 
 public class Node {
     int data;
@@ -73,12 +72,12 @@ class LinkedList {
         if (idx > size) {
             throw new IndexOutOfBoundsException();
         }
-        while (i < idx - 1) {
+        while (i < idx - 1) { //at the node before we want to delete
             curr = curr.next;
             i++;
         }
         Node temp = curr.next; //save the deleted item to return
-        curr.next = curr.next.next;
+        curr.next = curr.next.next; //skip the next to the one after it
         size--;
         return temp;
     }
@@ -108,6 +107,37 @@ class LinkedList {
             return toDelete;
         }
         return null;
+    }
+
+    Node deleteNthFromEnd(int n) {
+        Node curr = head;
+        Node fast = head;
+        Node slow = head;
+        for (int i = 1; i <= n + 1; i++) {
+            fast = fast.next;
+        }
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return curr.next;
+    }
+
+    //fast and slow pointers eventually collide if loop points back to itself
+    boolean hasCycle() {
+        if (head == null) return false;
+        Node fast = head;
+        Node slow = head;
+
+        while (fast != null && fast.next != null && slow != null) {
+            if (fast == slow) {
+                return true;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return false;
     }
 
 
