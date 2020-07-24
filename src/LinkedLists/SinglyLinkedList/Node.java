@@ -1,4 +1,4 @@
-package LinkedLists;
+package LinkedLists.SinglyLinkedList;
 
 public class Node {
     int data;
@@ -16,11 +16,11 @@ public class Node {
     }
 }
 
-class LinkedList {
+class SinglyLinkedList {
     Node head;
     int size;
 
-    public LinkedList(Node head) {
+    public SinglyLinkedList(Node head) {
         this.head = head;
         this.size = 1;
     }
@@ -91,6 +91,7 @@ class LinkedList {
             }
             curr = nextNode; //hold this reference to return it later
             nextNode = nextNode.next; //null
+            size--;
         }
         return curr;
     }
@@ -99,6 +100,7 @@ class LinkedList {
         if (head != null) {
             Node toDelete = head;
             head = head.next;
+            size--;
             return toDelete;
         }
         return null;
@@ -154,8 +156,7 @@ class LinkedList {
 
     public static void main(String[] args) {
         Node n = new Node(1);
-        LinkedList l = new LinkedList(n);
-        l.addToEnd(1);
+        SinglyLinkedList l = new SinglyLinkedList(n);
         l.addToEnd(2);
         l.addToEnd(3);
         l.addToEnd(4);
@@ -169,6 +170,7 @@ class LinkedList {
 //        System.out.println(l.size);
 //        l.deleteNthFromEnd(2); //removes 4
         System.out.println(l.reverseLinkedList());
+
 //        Node curr = l.head;
 //        while(curr != null) {
 //            System.out.println(curr);
