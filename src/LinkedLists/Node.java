@@ -11,7 +11,7 @@ public class Node {
     public String toString() {
         return "Node {" +
                 "data=" + data +
-                //", next= " + next +
+                ", next= " + next +
                 '}';
     }
 }
@@ -64,9 +64,7 @@ class LinkedList {
     Node deleteAtIndex(int idx) {
         int i = 0;
         Node curr = head;
-        if (head == null) {
-            return null;
-        }
+        if (head == null) return null;
         if (idx > size) {
             throw new IndexOutOfBoundsException();
         }
@@ -79,7 +77,6 @@ class LinkedList {
         size--;
         return temp;
     }
-
 
     Node deleteLast() {
         Node curr = head;
@@ -112,7 +109,7 @@ class LinkedList {
         Node slow = head;
         // 1->2->3->4->5, n = 2
         //fast = 3
-       // now fast = 4
+        // now fast = 4
         for (int i = 1; i <= n + 1; i++) {
             fast = fast.next;
         }
@@ -124,6 +121,7 @@ class LinkedList {
         }
         //slow skips 4 and now at 5
         slow.next = slow.next.next;
+        size--;
         return slow.next;
     }
 
@@ -142,10 +140,20 @@ class LinkedList {
         return false;
     }
 
+    Node reverseLinkedList() {
+        Node prevNode = null;
+        while(head!=null) {
+            Node nextNode = head.next;
+            head.next = prevNode;
+            prevNode = head;
+            head = nextNode;
+        }
+        return prevNode;
+    }
+
 
     public static void main(String[] args) {
         Node n = new Node(1);
-
         LinkedList l = new LinkedList(n);
         l.addToEnd(1);
         l.addToEnd(2);
@@ -155,44 +163,16 @@ class LinkedList {
 //        l.addToStart(3);
 //        l.addToStart(5);
 //        l.addAtIndex(100, 1);
-
 //        System.out.println(l.head);
 //        System.out.println(l.size);
-//
 //        System.out.println(l.deleteAtIndex(2));
-//
 //        System.out.println(l.size);
-
-        l.deleteNthFromEnd(2); //removes 4
-
-        Node curr = l.head;
-        while(curr != null) {
-            System.out.println(curr);
-            curr = curr.next;
-        }
-
-
-
+//        l.deleteNthFromEnd(2); //removes 4
+        System.out.println(l.reverseLinkedList());
+//        Node curr = l.head;
+//        while(curr != null) {
+//            System.out.println(curr);
+//            curr = curr.next;
+//        }
     }
 }
-
-
-
-/*
-5, 3, 1, 2
-5, 3, 100, 1, 2
-5, 3, 1, 2
-
-Node {data=5, next=
-                    Node {data=3, next=
-                                        Node {data=1, next=
-                                                         Node {data=2, next= null}}}}
-
-Node {data=5, next=
-                    Node {data=3, next=
-                                        Node {data=100, next=
-                                                            Node {data=1, next=
-                                                                                Node {data=2, next= null}}}}}
-
-
- */
