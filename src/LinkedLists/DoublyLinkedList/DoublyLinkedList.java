@@ -52,7 +52,7 @@ public class DoublyLinkedList {
             if (curr.next != null) {
                 //take the next node's previous pointer and point to our new node
                 curr.next.prev = n;
-                //our new node's next is now set to that next node
+                //our new node's next is now set to curr.next
                 n.next = curr.next;
             }
             //this curr.next is the last node, so assign it to new node
@@ -76,6 +76,21 @@ public class DoublyLinkedList {
             size++;
         }
     }
+    Node deleteLast() {
+       Node curr = head;
+       if (head == null || head.next == null) {
+           head = null;
+           return curr; //return head
+       }
+       //if it's not the last node, then skip one node
+       while (curr.next != null) {
+           curr = curr.next;
+       }
+       //if it's the last node,
+        // then set the previous node's next point to point to null
+       return curr.prev.next = null;
+    }
+
 
     public static void main(String[] args) {
        Node n = new Node(1);
@@ -85,8 +100,9 @@ public class DoublyLinkedList {
         l.addToEnd(4);
         l.addToEnd(5);
         l.addToStart(1);
+        l.deleteLast();
 
-        System.out.println(l.size);
+        System.out.println(l.head);
     }
 
 
