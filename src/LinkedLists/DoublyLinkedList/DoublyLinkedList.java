@@ -85,10 +85,24 @@ public class DoublyLinkedList {
        //if it's not the last node, then skip one node
        while (curr.next != null) {
            curr = curr.next;
+           size--;
        }
        //if it's the last node,
         // then set the previous node's next point to point to null
-       return curr.prev.next = null;
+       size--;
+        return curr.prev.next = null;
+    }
+
+    Node deleteStart() {
+        Node toDelete = head;
+        if (head == null || head.next == null) {
+            head = null;
+            return toDelete; //return head
+        }
+        head = head.next;
+        head.prev = null;
+        return toDelete;
+
     }
 
 
