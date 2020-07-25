@@ -134,6 +134,7 @@ class SinglyLinkedList {
         Node slow = head;
         while (fast != null && fast.next != null && slow != null) {
             if (fast == slow) {
+                fast.next = null; //maybe to remove the loop?
                 return true;
             }
             fast = fast.next.next;

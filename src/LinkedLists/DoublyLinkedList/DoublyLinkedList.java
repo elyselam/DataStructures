@@ -42,6 +42,29 @@ public class DoublyLinkedList {
            size++;
        }
     }
+    void insertAfterRecursive(Node curr, int insertAfter, int data) {
+        if (curr == null) return;
+        //if the data matches what's given
+        if (curr.data == insertAfter) {
+            //create new node
+            Node n = new Node(data);
+            //as long as it's not the last node
+            if (curr.next != null) {
+                //take the next node's previous pointer and point to our new node
+                curr.next.prev = n;
+                //our new node's next is now set to that next node
+                n.next = curr.next;
+            }
+            //this curr.next is the last node, so assign it to new node
+            curr.next = n;
+            n.prev = curr; //new node's previous pointer is the current
+        } else {
+            //repeats process for every node after
+            insertAfterRecursive(curr.next, insertAfter, data);
+        }
+    }
+
+
     void addToStart(int data) {
         Node n = new Node(data);
         if (head == null) {
@@ -61,7 +84,9 @@ public class DoublyLinkedList {
         l.addToEnd(3);
         l.addToEnd(4);
         l.addToEnd(5);
-        System.out.println(l.head);
+        l.addToStart(1);
+
+        System.out.println(l.size);
     }
 
 
