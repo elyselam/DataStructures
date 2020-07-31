@@ -76,5 +76,20 @@ public class Trie {
         return current.endOfWord;//return true or false accordingly
     }
 
+    public boolean searchRecursive(String word) {
+        return searchRecursive(root, word, 0);
+    }
+    private boolean searchRecursive(TrieNode current, String word, int index) {
+        if (index == word.length()) {
+            return current.endOfWord; //true or false
+        }
+        char ch = word.charAt(index);
+        TrieNode node = current.children.get(ch);
+        if (node == null) { //if not in map, return false
+            return false;
+        }
+        return searchRecursive(node, word, index + 1);
+    }
+
 
 }
