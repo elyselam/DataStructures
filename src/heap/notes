@@ -1,0 +1,39 @@
+Heap is a tree based DS with heap property.
+Max Heap: a parent node > children
+
+Priority Queue is an Abstract Data Type, similar to queue except each element has a certain priority
+priority of elements determine the order of their removal. can be implemented with other DS
+
+Complexity PQ with Binary Heap
+Construction: O(n)
+Polling()(removing root): O(log(n))
+Adding: O(log(n))
+Peek: O(1)
+naive removing: O(n)
+hash table removing: O(log(n))
+naive contains(): O(n)
+hash table contains(): O(1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.youtube.com/watch?v=wptevk0bshY

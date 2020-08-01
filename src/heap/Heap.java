@@ -10,13 +10,19 @@ public class Heap<T extends Comparable<T>> {
     public Heap() {
         items = new ArrayList<T>();
     }
-
+/*
+              p               k
+0   1   2  3  4   5  6  7  8  9
+15, 10, 9, 8, 12, 6, 3, 4, 2, 9
+ */
     private void siftUp() {
+        //node at index k has parent at index (k-1)-2
         int k = items.size() - 1;
         while (k > 0) {
             int p = (k - 1) / 2;
             T item = items.get(k);
             T parent = items.get(p);
+            //if k item > p item
             if (item.compareTo(parent) > 0) {
                 // swap
                 items.set(k, parent);
