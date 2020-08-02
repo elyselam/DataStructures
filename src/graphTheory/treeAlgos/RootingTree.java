@@ -12,10 +12,11 @@ public class RootingTree {
             this.id = id;
         }
 
+        //given an ID, and a parent, createa a new node with (id, parent, list of nodes)
         public TreeNode(int id, TreeNode parent) {
             this.id = id;
             this.parent = parent;
-            children = new LinkedList<>();
+            children = new LinkedList<>();//need to choose an implementation, not just an List interface
         }
         //varargs: 0 to multiple TreeNode objects can be passed in
         public void addChildren(TreeNode... nodes){
@@ -52,25 +53,36 @@ public class RootingTree {
             return id == treeNode.id;
         }
 
+
+
+
+
+
+        //build with children, and root
         public static TreeNode rootTree(List<List<Integer>> graph, int rootId) {
+            //using constructor on line 11, where root id = 0, parent = null, children empty list
             TreeNode root = new TreeNode(rootId);
+            //return the graph, where root's parent = null
             return buildTree(graph, root);
         }
-        //depth first search
+        //depth first build recursively
         private static TreeNode buildTree(List<List<Integer>> graph, TreeNode node) {
+            //childId is within list of childIds
             for (int childId : graph.get(node.getId())) {
+                //skip nodes that points back to parent
                 if (node.getParent() != null && childId == node.getParent().getId()) {
                     continue;
                 }
+                //each child is created new with its id, and parent node
+                //using the constructor public TreeNode(int id, TreeNode parent) on line 16
                 TreeNode child = new TreeNode(childId, node);
+                //adding a child to the existing children list of the parent node
                 node.addChildren(child);
+                //repeat process on that child
                 buildTree(graph, child);
             }
+            //node is root
             return node;
         }
-
-
-
     }
-
 }
