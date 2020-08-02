@@ -9,7 +9,8 @@ public class RootingTree {
         private List<TreeNode> children;
 
         public TreeNode(int id) {
-            this.id = id;
+            this.id = id; //this(id, null); if we want to call the 2nd constructor
+            children = new LinkedList<>();
         }
 
         //given an ID, and a parent, createa a new node with (id, parent, list of nodes)
@@ -18,8 +19,9 @@ public class RootingTree {
             this.parent = parent;
             children = new LinkedList<>();//need to choose an implementation, not just an List interface
         }
+
         //varargs: 0 to multiple TreeNode objects can be passed in
-        public void addChildren(TreeNode... nodes){
+        public void addChildren(TreeNode... nodes) {
             for (TreeNode node : nodes) {
                 children.add(node);
             }
@@ -37,26 +39,12 @@ public class RootingTree {
             return children;
         }
 
-
         @Override
         public String toString() {
             return "TreeNode{" +
                     "id=" + id +
                     '}';
         }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            TreeNode treeNode = (TreeNode) o;
-            return id == treeNode.id;
-        }
-
-
-
-
-
 
         //build with children, and root
         public static TreeNode rootTree(List<List<Integer>> graph, int rootId) {
@@ -65,6 +53,7 @@ public class RootingTree {
             //return the graph, where root's parent = null
             return buildTree(graph, root);
         }
+
         //depth first build recursively
         private static TreeNode buildTree(List<List<Integer>> graph, TreeNode node) {
             //childId is within list of childIds
@@ -84,5 +73,59 @@ public class RootingTree {
             //node is root
             return node;
         }
+
+
+        private static List<List<Integer>> createGraph(int n) {
+            List<List<Integer>> graph = new ArrayList<>(n);
+            for (int i = 0; i < n; i++) graph.add(new LinkedList<>());
+            return graph;
+        }
+
+        private static void addUndirectedEdge(List<List<Integer>> graph, int from, int to) {
+            graph.get(from).add(to);
+            graph.get(to).add(from);
+        }
+
+        public static void main(String[] args) {
+
+            List<List<Integer>> graph = createGraph(9);
+            addUndirectedEdge(graph, 0, 1);
+            addUndirectedEdge(graph, 2, 1);
+            addUndirectedEdge(graph, 2, 3);
+            addUndirectedEdge(graph, 3, 4);
+            addUndirectedEdge(graph, 5, 3);
+            addUndirectedEdge(graph, 2, 6);
+            addUndirectedEdge(graph, 6, 7);
+            addUndirectedEdge(graph, 6, 8);
+
+            // Rooted at 6 the tree should look like:
+            //           6
+            //      2    7     8
+            //    1   3
+            //  0    4 5
+            TreeNode root = rootTree(graph, 6);
+
+            // Layer 0: [6]
+            System.out.println(root);
+            // Layer 1: [2, 7, 8]
+            System.out.println(root.children);
+
+            // Layer 2: [1, 3]
+            System.out.println(root.children.get(0).children);
+
+            // Layer 3: [0], [4, 5]
+            System.out.println(
+                    root.children.get(0).children.get(0).children
+                            + ", "
+                            + root.children.get(0).children.get(1).children);
+        }
+
+        /*TreeNode{id=6}
+[TreeNode{id=2}, TreeNode{id=7}, TreeNode{id=8}]
+[TreeNode{id=1}, TreeNode{id=3}]
+[TreeNode{id=0}], [TreeNode{id=4}, TreeNode{id=5}]
+
+         */
     }
 }
+
