@@ -1,0 +1,17 @@
+package HashTable;
+/*
+abstract data type,
+data types don't have to match, optimized for retrieval if you know the key
+as
+collision: happens when more than 1 value has the same hashed value
+function: Object.hashCode(). maps keys of any data type to int
+Load Factor: how full a hash table is. used to decide when to resize the array backing the hash table
+            the higher LF: the more likely of collisions
+            # items / capacity = size / capacity
+            determine time complexity for retrieval
+add to HashTable backed by an array:
+1) provide k/v pair
+2) use hash function to hash key into int
+3) store index into the array
+ */
+
