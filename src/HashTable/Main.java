@@ -16,13 +16,19 @@ public class Main {
         ht.put("Smith", marySmith);
 
         //ht.printHashtable();
-//error bc 6//10 gives the same index as jones
-        System.out.println("Retrieve key Wilson: " + ht.get("Wilson"));
+        //error bc 6//10 gives the same index as jones
+        System.out.println("key Wilson: " + ht.get("Wilson"));
 
 
         /*
         open addressing...position 5 is taken, linear probing
         incrememnt 5 to 6, if not, keep incrementing, 1 probe at a time
          */
+        //not updated get() so it just returns Jane
+        System.out.println("key Smith " + ht.get("Smith"));
+
+
+
+
     }
 }

@@ -1,7 +1,8 @@
 package HashTable;
 
 public class SimpleHashtable {
-    private Employee[] arr;
+    private Employee[] arr; //was only storing value, not keys
+
     public SimpleHashtable() {
         //arr[5] = 'jane jones'
         arr = new Employee[10];
