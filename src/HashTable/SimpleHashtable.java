@@ -1,11 +1,11 @@
 package HashTable;
 
 public class SimpleHashtable {
-    private Employee[] arr; //was only storing value, not keys
+    private StoredEmp[] arr; //was only storing value, not keys
 
     public SimpleHashtable() {
         //arr[5] = 'jane jones'
-        arr = new Employee[10];
+        arr = new StoredEmp[10];
     }
 
     public void put(String key, Employee employee) {
@@ -30,17 +30,24 @@ public class SimpleHashtable {
         if (occupied(k)) {
             System.out.println("already an emp at position, cant handle collision" + k);
         } else {
-            arr[k] = employee;
+            arr[k] = new StoredEmp(key, employee);
         }
     }
     //retrieval is O(1)
-    public Employee get(String key) {
+    public StoredEmp get(String key) {
         int k = hashKey(key);//5
         return arr[k]; //arr[5] = 'jane jones'
     }
     private int hashKey(String key) {
         // 'jones'.length => 5 % 10 = 5
         return key.length() % arr.length;
+    }
+
+    private int findKey(String key) {
+        int hashKey = hashKey(key);
+        if (arr[hashKey] != null && arr[hashKey].key.equals(key)) {
+            return hashKey;
+        }
     }
 
     //if there is already there, it's occupied
