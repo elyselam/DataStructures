@@ -35,8 +35,10 @@ public class SimpleHashtable {
     }
     //retrieval is O(1)
     public StoredEmp get(String key) {
-        int k = hashKey(key);//5
-        return arr[k]; //arr[5] = 'jane jones'
+        if (hashKey(key) == -1) {
+            return null;
+        }
+        return arr[hashKey(key)]; //arr[5] = 'jane jones'
     }
     private int hashKey(String key) {
         // 'jones'.length => 5 % 10 = 5
@@ -45,7 +47,25 @@ public class SimpleHashtable {
 
     private int findKey(String key) {
         int hashKey = hashKey(key);
+        //emp found, then return the value
         if (arr[hashKey] != null && arr[hashKey].key.equals(key)) {
+            return hashKey;
+        }
+
+        int stopIndex = hashKey;
+        if (hashKey == arr.length -1) {
+            hashKey = 0;
+        } else {
+            hashKey++;
+        }
+        while (hashKey != stopIndex &&
+                arr[hashKey] != null &&
+                !arr[hashKey].key.equals(key)) {
+            hashKey = (hashKey + 1) % arr.length;
+        }
+        if (stopIndex == hashKey) {
+            return -1;
+        } else {
             return hashKey;
         }
     }
@@ -57,7 +77,10 @@ public class SimpleHashtable {
 
     public void printHashtable() {
         for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
+            if(arr[i] == null) {
+                System.out.println("empty");
+            }
+            System.out.println(arr[i].emp);
         }
     }
 }
