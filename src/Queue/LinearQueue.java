@@ -1,5 +1,5 @@
 package Queue;
-
+//linear data structure that supports fifo operations
 import java.util.NoSuchElementException;
 
 //all operations time and space complexity = O(1)
