@@ -22,3 +22,13 @@ public class HeapApp {
         }
     }
 }
+
+
+/*
+insert: sift up: upheap bubbling
+delete: siftdown, downheap bubbling
+        min heap: p swaps with smaller child
+        max heap: p             larger child
+
+p => children @ 2p+1 & 2p+2
+ */
