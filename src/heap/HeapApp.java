@@ -25,6 +25,8 @@ public class HeapApp {
 
 
 /*
+maxheap
+
 insert: sift up: upheap bubbling
 delete: siftdown, downheap bubbling
         min heap: p swaps with smaller child
