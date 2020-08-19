@@ -6,16 +6,13 @@ r=2i+2
 p = floor((i-1)/2)
  */
 
-
-
-
 public class Heap {
     private int[] heap;
     private int size;
     public void printHeap() {
         for (int i = 0; i < size; i++) {
             System.out.println(heap[i]);
-            System.out.println(", ");
+//            System.out.println(", ");
         }
         System.out.println();
     }
@@ -25,10 +22,19 @@ public class Heap {
     public boolean isFull() {
         return size == heap.length;
     }
-    public int getParent(int index) {
+    public int getParent(int i) {
         //div with int already rounds it down so no need to floor
-        return (index-1) / 2;
+        return (i-1) / 2;
     }
+
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
+    public int getChild(int i, boolean left) {
+        return 2*i + (left ? 1: 2);
+    }
+
 
 
     public void insert(int value){
@@ -36,81 +42,89 @@ public class Heap {
             throw new IndexOutOfBoundsException("full");
         }
         heap[size] = value; //insert at rear
-        bubbleUp(size);
+        bubbleUp(size); //
         size++;
-
     }
 
-    private void bubbleUp(int index) {
-        int newVal = heap[index];
-        //if newVal is not root && > its parent
-        while (index > 0 && newVal > heap[getParent(index)]) {
-            //now assign the parent to where that value currently is
-            heap[index] = heap[getParent(index)];
-            //update index to point at parent,
-            // this index is being used to compare to its other parents
-            index = getParent(index);
+    private void bubbleUp(int i) {
+        int newVal = heap[i];
+
+        //if newVal is not root && > its p
+        while (i > 0 && newVal > heap[getParent(i)]) {
+
+            //swap curr with heap[(i-1)/2]
+            heap[i] = heap[getParent(i)];
+
+            //update i to point at p,
+            // keep bubbling up until value is not > than p
+            i = getParent(i);
         }
         //only assign value once dropped out of loop
-        //don't need to assign values while pushing the parent down
-        heap[index] = newVal;
+        heap[i] = newVal;
     }
 
-    public boolean isEmpty(){
-        return size == 0;
-    }
 
-    public int getChild(int index, boolean left) {
-        return 2*index + (left ? 1: 2);
-    }
 
-    public int delete(int index){
+    /*
+    - remove right-most value so tree remains complete
+    - then if newVal > p, bubbleUp
+    else bubbleDown
+     */
+
+    public int delete(int i){
         if (isEmpty()){
             throw new IndexOutOfBoundsException("empty");
         }
-        //save the parent of the deleted item
-        int parent = getParent(index);
-        int deletedVal = heap[index];
-        //right most val will replace whatever was in the index
-        heap[index] = heap[size-1];
-        //if delete root or value is less than parent, then don't need to bubble up
-        if (index == 0 || heap[index] < heap[parent]) {
-            //so we bubble down
-            bubbleDown(index, size - 1);
-        }else {
-            bubbleUp(index);
+        //save the p of the deleted item
+        int p = getParent(i);
+        int deletedVal = heap[i];
+
+        //right most val will replace whatever was at i
+        heap[i] = heap[size-1];
+
+        //if the deletedVal is root || deletedVal < p, bubbleDown
+        //root can't bubble up
+        if (i == 0 || heap[i] < heap[p]) {
+            //swap i with the right most value
+            bubbleDown(i, size - 1);
+        } else {
+            bubbleUp(i);
         }
         size--;
         return deletedVal;
-
-
     }
 
     //deleted value is always the right most leaf
-    private void bubbleDown(int index, int lastHeapIndex) {
+    private void bubbleDown(int i, int lastI) {
+        //if 1 side, make sure to swap with left
+        //if 2 sides, swap with larger one
         int childToSwap;
-        while (index <= lastHeapIndex) {
-            int l = getChild(index, true);
-            int r = getChild(index, false);
-            //if has a left child
-            if (l <= lastHeapIndex) {
-                //and if right child is out of bounds, we have to swap with left
-                if (r > lastHeapIndex) {
+        while (i <= lastI) {
+            int l = getChild(i, true);
+            int r = getChild(i, false);
+
+            //if left child is within bounds
+            if (l <= lastI) {
+                //and if right child is out of bounds, there is only left child, so swap with left
+                if (r > lastI) {
                     childToSwap = l;
                 } else {
                     //else there are both children, swap with the largest one
                     //if l > r, then l, else r
                     childToSwap = (heap[l] > heap[r] ? l : r);
                 }
-                //
-                if (heap[index] < heap[childToSwap]) {
-                    int temp = heap[index];
-                    heap[index] = heap[childToSwap];
+                //if item is less than children, need to bubbleDown
+                if (heap[i] < heap[childToSwap]) {
+                    //save current value
+                    int temp = heap[i];
+                    //now swap with the child
+                    heap[i] = heap[childToSwap];
+                    //place that temp value to be sweap later
                     heap[childToSwap] = temp;
                 } else {
                     break;
                 }
-                index = childToSwap;
+                i = childToSwap;
             }
 
         }
