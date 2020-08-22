@@ -15,7 +15,7 @@ public class Main {
         h.delete(1);
         h.printHeap();
 
-
+        System.out.println(h.peek());
 
     }
 }

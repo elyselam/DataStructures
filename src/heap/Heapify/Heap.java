@@ -77,12 +77,14 @@ public class Heap {
         }
         //save the p of the deleted item
         int p = getParent(i);
+        //always returns this at the end
         int deletedVal = heap[i];
 
-        //right most val will replace whatever was at i
+        //replaces val with the very last value
         heap[i] = heap[size-1];
 
-        //if the deletedVal is root || deletedVal < p, bubbleDown
+        //bubbleDown
+        //if the curr is root || curr < p
         //root can't bubble up
         if (i == 0 || heap[i] < heap[p]) {
             //swap i with the right most value
@@ -103,7 +105,7 @@ public class Heap {
             int l = getChild(i, true);
             int r = getChild(i, false);
 
-            //if left child is within bounds
+            //if l is not last leaf
             if (l <= lastI) {
                 //and if right child is out of bounds, there is only left child, so swap with left
                 if (r > lastI) {
@@ -115,18 +117,26 @@ public class Heap {
                 }
                 //if item is less than children, need to bubbleDown
                 if (heap[i] < heap[childToSwap]) {
-                    //save current value
+                    //save current value as temp
                     int temp = heap[i];
-                    //now swap with the child
+                    //now swap with the larger child
                     heap[i] = heap[childToSwap];
-                    //place that temp value to be sweap later
+                    //place that temp value to be swap in later iterations if the conditions meet
                     heap[childToSwap] = temp;
+                    //else break out
                 } else {
                     break;
                 }
+                //now goes down the tree until i is at the last leaf
                 i = childToSwap;
             }
-
         }
+    }
+
+    public int peek() {
+        if(isEmpty()){
+            throw new IndexOutOfBoundsException("empty");
+        }
+        return heap[0];
     }
 }
